@@ -1,4 +1,4 @@
-package com.codenation.group3.centralDeErros;
+package com.codenation.group5.centralDeErros;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
