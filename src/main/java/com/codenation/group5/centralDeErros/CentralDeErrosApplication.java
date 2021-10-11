@@ -1,4 +1,4 @@
-package com.codenation.group3.centralDeErros;
+package com.codenation.group5.centralDeErros;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
