@@ -12,7 +12,7 @@ import com.codenation.group3.centralDeErros.repository.ErrorLogRepository;
 @Service
 public class ErrorLogService {
 	
-	private ErrorLogRepository repository;
+	private final ErrorLogRepository repository;
 	
 	@Autowired
 	public ErrorLogService(ErrorLogRepository repository) {
@@ -48,10 +48,8 @@ public class ErrorLogService {
 	
 	public void delete(Long id) {
 		Optional<ErrorLog> log = repository.findById(id);
-		
-		if (log.isPresent()) {
-			repository.delete(log.get());
-		}
+
+        log.ifPresent(repository::delete);
 	}
 
 }

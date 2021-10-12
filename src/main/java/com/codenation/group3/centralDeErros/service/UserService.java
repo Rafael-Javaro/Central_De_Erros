@@ -4,15 +4,18 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.codenation.group3.centralDeErros.entity.User;
 import com.codenation.group3.centralDeErros.repository.UserRepository;
 
 @Service
-public class UserService {
+public class UserService implements UserDetailsService {
 	
-	UserRepository repository;
+	private final UserRepository repository;
 	
 	@Autowired
 	public UserService(UserRepository repository) {
@@ -47,12 +50,12 @@ public class UserService {
 	
 	public void delete(Long id) {
 		Optional<User> user = repository.findById(id);
-		
-		if (user.isPresent()) {
-			repository.delete(user.get());
-		}
-	}
-	
-	
 
+		user.ifPresent(repository::delete);
+	}
+
+	@Override
+	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+		return repository.findByEmail(email);
+	}
 }
