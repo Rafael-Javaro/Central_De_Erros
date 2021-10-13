@@ -42,6 +42,8 @@ public class UserService implements UserDetailsService {
 			user.get().setEmail(newUser.getEmail());
 			user.get().setPassword(newUser.getPassword());
 			
+			repository.save(user.get());
+			
 			return user.get();
 		}
 		

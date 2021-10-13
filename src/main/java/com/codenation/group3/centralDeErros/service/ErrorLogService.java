@@ -40,6 +40,8 @@ public class ErrorLogService {
 			log.get().setLog(newErrorLog.getLog());
 			log.get().setOrigin(newErrorLog.getOrigin());
 			
+			repository.save(log.get());
+			
 			return log.get();
 		}
 		

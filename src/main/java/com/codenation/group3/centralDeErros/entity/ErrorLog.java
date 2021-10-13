@@ -15,9 +15,9 @@ import java.util.Objects;
 @Getter
 @Setter
 @ToString
-@EntityListeners(AuditingEntityListener.class)
+//@EntityListeners(AuditingEntityListener.class)
 @Table(name = "errors_table")
-public class ErrorLog {
+public class ErrorLog extends Auditable<String>{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,9 +39,9 @@ public class ErrorLog {
     @Column(length = 100, nullable = false)
     private String origin;
 
-    @NotNull
-    @Column(length = 255, nullable = false, name = "created_at")
-    private LocalDateTime createdAt;
+//    @NotNull
+//    @Column(length = 255, nullable = false, name = "created_at")
+//    private LocalDateTime createdAt;
 
     @Override
     public boolean equals(Object o) {
