@@ -1,8 +1,13 @@
 package com.codenation.group3.centralDeErros.controller;
 
 import com.codenation.group3.centralDeErros.dtos.ErrorLogDTO;
+import com.codenation.group3.centralDeErros.dtos.UserDTO;
 import com.codenation.group3.centralDeErros.entity.ErrorLog;
+import com.codenation.group3.centralDeErros.entity.User;
 import com.codenation.group3.centralDeErros.service.ErrorLogService;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,14 +20,25 @@ import java.util.stream.Collectors;
 public class ErrorLogController {
     ErrorLogService errorLogService;
 
+//    @GetMapping
+//    public ResponseEntity<List<ErrorLogDTO>> findAll() {
+//    	List<ErrorLogDTO> dtoList = errorLogService.findAll()
+//    			.stream()
+//    			.map(this::toErrorLogDTO)
+//    			.collect(Collectors.toList());
+//    	
+//        return new ResponseEntity<>(dtoList, HttpStatus.OK);
+//    }
+    
     @GetMapping
-    public ResponseEntity<List<ErrorLogDTO>> findAll() {
-    	List<ErrorLogDTO> dtoList = errorLogService.findAll()
-    			.stream()
+    public ResponseEntity<List<ErrorLogDTO>> findAll(Pageable pageable) {
+    	Page<ErrorLog> page = errorLogService.findAll(pageable);
+    	
+    	List<ErrorLogDTO> response = page.getContent().stream()
     			.map(this::toErrorLogDTO)
     			.collect(Collectors.toList());
     	
-        return new ResponseEntity<>(dtoList, HttpStatus.OK);
+    	return new ResponseEntity<>(response, HttpStatus.OK);
     }
     
     @GetMapping("/{id}")
