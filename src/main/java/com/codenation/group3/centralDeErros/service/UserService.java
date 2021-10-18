@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -22,8 +24,8 @@ public class UserService implements UserDetailsService {
 		this.repository = repository;
 	}
 	
-	public List<User> findAll() {
-		return repository.findAll();
+	public Page<User> findAll(Pageable pageable) {
+		return repository.findAll(pageable);
 	}
 	
 	public User findById(Long id) {
