@@ -4,6 +4,9 @@ import com.codenation.group3.centralDeErros.dtos.UserDTO;
 import com.codenation.group3.centralDeErros.entity.User;
 import com.codenation.group3.centralDeErros.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,14 +22,35 @@ public class UserController {
     @Autowired
     UserService userService;
 
+//    @GetMapping
+//    public ResponseEntity<List<UserDTO>> findAll() {
+//    	List<UserDTO> dtoList = userService.findAll()
+//    			.stream()
+//    			.map(this::toUserDTO)
+//    			.collect(Collectors.toList());
+//    	
+//        return new ResponseEntity<>(dtoList, HttpStatus.OK);
+//    }
+    
+//    @GetMapping
+//    public ResponseEntity<Page<UserDTO>> findAll(Pageable pageable) {
+//    	Page<UserDTO> dtoList = userService.findAll(pageable)
+//    			.stream()
+//    			.map(this::toUserDTO)
+//    			.collect(Collectors.toList());
+//    	
+//        return new ResponseEntity<>(dtoList, HttpStatus.OK);
+//    }
+    
     @GetMapping
-    public ResponseEntity<List<UserDTO>> findAll() {
-    	List<UserDTO> dtoList = userService.findAll()
-    			.stream()
+    public ResponseEntity<List<UserDTO>> findAll(Pageable pageable) {
+    	Page<User> page = userService.findAll(pageable);
+    	
+    	List<UserDTO> response = page.getContent().stream()
     			.map(this::toUserDTO)
     			.collect(Collectors.toList());
     	
-        return new ResponseEntity<>(dtoList, HttpStatus.OK);
+    	return new ResponseEntity<>(response, HttpStatus.OK);
     }
     
     @GetMapping("/{id}")
