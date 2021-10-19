@@ -19,8 +19,12 @@ import java.util.stream.Collectors;
 @RequestMapping("/user")
 public class UserController {
 
+    private UserService userService;
+    
     @Autowired
-    UserService userService;
+    public UserController(UserService userService) {
+    	this.userService = userService;
+    }
 
 //    @GetMapping
 //    public ResponseEntity<List<UserDTO>> findAll() {
