@@ -6,6 +6,7 @@ import com.codenation.group3.centralDeErros.entity.ErrorLog;
 import com.codenation.group3.centralDeErros.entity.User;
 import com.codenation.group3.centralDeErros.service.ErrorLogService;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -18,7 +19,13 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/error-log")
 public class ErrorLogController {
-    ErrorLogService errorLogService;
+	
+    private ErrorLogService errorLogService;
+    
+    @Autowired
+    public ErrorLogController(ErrorLogService errorLogService) {
+    	this.errorLogService = errorLogService;
+    }
 
 //    @GetMapping
 //    public ResponseEntity<List<ErrorLogDTO>> findAll() {
