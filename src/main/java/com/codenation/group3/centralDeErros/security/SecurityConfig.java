@@ -33,7 +33,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 "/user",
                 "/user/**",
                 "/error-log",
-                "error-log/**",
+                "/error-log/**",
                 "/v2/api-docs",
                 "/configuration/ui",
                 "/swagger-resources/**",
