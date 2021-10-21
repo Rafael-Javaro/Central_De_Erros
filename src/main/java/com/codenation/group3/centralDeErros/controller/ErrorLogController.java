@@ -1,6 +1,7 @@
 package com.codenation.group3.centralDeErros.controller;
 
 import com.codenation.group3.centralDeErros.dtos.ErrorLogDTO;
+import com.codenation.group3.centralDeErros.dtos.fullErrorLogDTO;
 import com.codenation.group3.centralDeErros.entity.ErrorLog;
 import com.codenation.group3.centralDeErros.service.ErrorLogService;
 
@@ -48,8 +49,9 @@ public class ErrorLogController {
     }
     
     @GetMapping("/{id}")
-    public ResponseEntity<ErrorLogDTO> findById(@PathVariable("id") Long id) {
-        ErrorLogDTO errorLog = this.toErrorLogDTO(errorLogService.findById(id));
+    public ResponseEntity<fullErrorLogDTO> findById(@PathVariable("id") Long id) {
+        fullErrorLogDTO errorLog = 
+        		this.toFullErrorLogDTO(errorLogService.findById(id));
         
         return new ResponseEntity<>(errorLog, HttpStatus.OK);
     }
@@ -76,6 +78,16 @@ public class ErrorLogController {
     
     private ErrorLogDTO toErrorLogDTO(ErrorLog log) {
     	ErrorLogDTO dto = new ErrorLogDTO();
+    	dto.setId(log.getId());
+    	dto.setLevel(log.getLevel());
+    	dto.setDescription(log.getDescription());
+    	dto.setOrigin(log.getOrigin());
+    	
+    	return dto;
+    }
+    
+    private fullErrorLogDTO toFullErrorLogDTO(ErrorLog log) {
+    	fullErrorLogDTO dto = new fullErrorLogDTO();
     	dto.setId(log.getId());
     	dto.setLevel(log.getLevel());
     	dto.setDescription(log.getDescription());
