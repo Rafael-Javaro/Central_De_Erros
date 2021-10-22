@@ -36,16 +36,6 @@ public class ErrorLogController {
     public ErrorLogController(ErrorLogService errorLogService) {
     	this.errorLogService = errorLogService;
     }
-
-//    @GetMapping
-//    public ResponseEntity<List<ErrorLogDTO>> findAll() {
-//    	List<ErrorLogDTO> dtoList = errorLogService.findAll()
-//    			.stream()
-//    			.map(this::toErrorLogDTO)
-//    			.collect(Collectors.toList());
-//    	
-//        return new ResponseEntity<>(dtoList, HttpStatus.OK);
-//    }
     
     @GetMapping
     public ResponseEntity<List<ErrorLogDTO>> findAll(Pageable pageable) {
