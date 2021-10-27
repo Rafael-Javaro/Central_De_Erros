@@ -1,5 +1,9 @@
 package com.codenation.group3.centralDeErros.service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -55,6 +59,35 @@ public class ErrorLogService {
 		Optional<ErrorLog> log = repository.findById(id);
 
         log.ifPresent(repository::delete);
+	}
+	
+	// Métodos de filtragem
+	public Page<ErrorLog> findByLevel(String level, Pageable pageable) {
+		return repository.findByLevelIgnoreCase(level, pageable);
+	}
+	
+	public Page<ErrorLog> findByDescription(String description, Pageable pageable) {
+		return repository.findByDescriptionContainingIgnoreCase(description, pageable);
+	}
+	
+	public Page<ErrorLog> findByLog(String log, Pageable pageable) {
+		return repository.findByLogContainingIgnoreCase(log, pageable);
+	}
+	
+	public Page<ErrorLog> findByOrigin(String origin, Pageable pageable) {
+		return repository.findByOriginContainingIgnoreCase(origin, pageable);
+	}
+	
+	public Page<ErrorLog> findByDate(String from, String to, Pageable pageable) {
+		DateTimeFormatter parser = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    	LocalDateTime startDate = LocalDate.parse(from, parser).atStartOfDay();
+    	LocalDateTime endDate = LocalDate.parse(to, parser).atTime(23, 59);
+		
+		return repository.findByCreatedAtBetween(startDate, endDate, pageable);
+	}
+	
+	public Integer countByLevel(String level) {
+		return repository.countByLevelIgnoreCase(level);
 	}
 
 }
