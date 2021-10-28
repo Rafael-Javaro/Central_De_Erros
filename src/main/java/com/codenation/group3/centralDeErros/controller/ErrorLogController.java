@@ -73,7 +73,10 @@ public class ErrorLogController {
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteErrorLog(@PathVariable("id") Long id) {
         errorLogService.delete(id);
-        return new ResponseEntity<String>(HttpStatus.ACCEPTED);
+        
+        return new ResponseEntity<String>(
+        		"Log " + id + " successfully deleted.", 
+        		HttpStatus.ACCEPTED);
     }
     
     // Métodos de filtragem

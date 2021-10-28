@@ -1,17 +1,21 @@
 package com.codenation.group3.centralDeErros.service;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.codenation.group3.centralDeErros.entity.User;
+import com.codenation.group3.centralDeErros.exceptions.UserAlreadyExistsException;
+import com.codenation.group3.centralDeErros.exceptions.UserIncompleteBodyException;
+import com.codenation.group3.centralDeErros.exceptions.UserNotFoundException;
 import com.codenation.group3.centralDeErros.repository.UserRepository;
 
 @Service
@@ -29,14 +33,32 @@ public class UserService implements UserDetailsService {
 	}
 	
 	public User findById(Long id) {
-		return repository.findById(id).orElseThrow(RuntimeException::new);
+		return repository.findById(id)
+				.orElseThrow(() -> new UserNotFoundException(id));
 	}
 	
 	public User save(User user) {
+		if (user.getName() == null 
+			|| user.getEmail() == null 
+			|| user.getPassword() == null) {
+    		throw new UserIncompleteBodyException();
+    	}
+		
+		if (repository.findByEmail(user.getEmail()) != null) {
+			throw new UserAlreadyExistsException(user.getEmail());
+		}
+		
 		return repository.save(user);
 	}
 	
 	public User update(Long id, User newUser) {
+		if (id == null
+				|| newUser.getName() == null 
+				|| newUser.getEmail() == null 
+				|| newUser.getPassword() == null) {
+	    		throw new UserIncompleteBodyException();
+	    	}
+		
 		Optional<User> user = repository.findById(id);
 		
 		if (user.isPresent()) {
@@ -49,13 +71,14 @@ public class UserService implements UserDetailsService {
 			return user.get();
 		}
 		
-		return null;
+		throw new UserNotFoundException(id);
 	}
 	
 	public void delete(Long id) {
-		Optional<User> user = repository.findById(id);
+		User user = repository.findById(id)
+				.orElseThrow(() -> new UserNotFoundException(id));
 
-		user.ifPresent(repository::delete);
+		repository.delete(user);
 	}
 
 	@Override
