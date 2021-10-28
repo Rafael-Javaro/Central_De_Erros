@@ -14,6 +14,8 @@ import org.springframework.stereotype.Service;
 
 import com.codenation.group3.centralDeErros.entity.ErrorLog;
 import com.codenation.group3.centralDeErros.entity.User;
+import com.codenation.group3.centralDeErros.exceptions.LogIncompleteBodyException;
+import com.codenation.group3.centralDeErros.exceptions.LogNotFoundException;
 import com.codenation.group3.centralDeErros.repository.ErrorLogRepository;
 
 @Service
@@ -31,14 +33,30 @@ public class ErrorLogService {
 	}
 	
 	public ErrorLog findById(Long id) {
-		return repository.findById(id).orElseThrow(RuntimeException::new);
+		return repository.findById(id)
+				.orElseThrow(() -> new LogNotFoundException(id));
 	}
 	
 	public ErrorLog save(ErrorLog log) {
+		if (log.getLevel() == null
+				|| log.getDescription() == null
+				|| log.getLog() == null
+				|| log.getOrigin() == null) {
+			throw new LogIncompleteBodyException();
+		}
 		return repository.save(log);
 	}
 	
 	public ErrorLog update(Long id, ErrorLog newErrorLog) {
+		if (id == null
+				|| newErrorLog.getLevel() == null
+				|| newErrorLog.getDescription() == null
+				|| newErrorLog.getLog() == null
+				|| newErrorLog.getOrigin() == null
+				) {
+			throw new LogIncompleteBodyException();
+		}
+		
 		Optional<ErrorLog> log = repository.findById(id);
 		
 		if (log.isPresent()) {
@@ -52,13 +70,14 @@ public class ErrorLogService {
 			return log.get();
 		}
 		
-		return null;
+		throw new LogNotFoundException(id);
 	}
 	
 	public void delete(Long id) {
-		Optional<ErrorLog> log = repository.findById(id);
+		ErrorLog log = repository.findById(id)
+				.orElseThrow(() -> new LogNotFoundException(id));
 
-        log.ifPresent(repository::delete);
+		repository.delete(log);
 	}
 	
 	// Métodos de filtragem

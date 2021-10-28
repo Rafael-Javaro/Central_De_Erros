@@ -28,26 +28,6 @@ public class UserController {
     public UserController(UserService userService) {
     	this.userService = userService;
     }
-
-//    @GetMapping
-//    public ResponseEntity<List<UserDTO>> findAll() {
-//    	List<UserDTO> dtoList = userService.findAll()
-//    			.stream()
-//    			.map(this::toUserDTO)
-//    			.collect(Collectors.toList());
-//    	
-//        return new ResponseEntity<>(dtoList, HttpStatus.OK);
-//    }
-    
-//    @GetMapping
-//    public ResponseEntity<Page<UserDTO>> findAll(Pageable pageable) {
-//    	Page<UserDTO> dtoList = userService.findAll(pageable)
-//    			.stream()
-//    			.map(this::toUserDTO)
-//    			.collect(Collectors.toList());
-//    	
-//        return new ResponseEntity<>(dtoList, HttpStatus.OK);
-//    }
     
     @GetMapping
     public ResponseEntity<List<UserDTO>> findAll(Pageable pageable) {
