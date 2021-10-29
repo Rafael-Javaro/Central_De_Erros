@@ -1,20 +1,30 @@
 
-
-
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
+<!--
   <a href="https://github.com/Rafael-Javaro/Central_De_Erros">
     <img src="src/assets/logo.gif" alt="Logo" >
   </a>
-
-  <h3 align="center">Central de Erros :: Frontend</h3>
+-->
+  <h1 align="center">Central de Erros :: Backend</h1>
 
   <p align="center">
     Repositório de Backend para o desafio final realizado para a aceleração Java Spring Boot, oferecida pela Trybe em parceria com a empresa CI&T.
     <br />
-    <br />
-    <a href="https://ancient-ridge-40479.herokuapp.com//user">Ver Online</a>
+  </p>
+  <p align="center">
+    <a href="https://www.betrybe.com/" target="_blank" rel="noreferrer">
+      <img src="readme-img/trybe.jpg" alt="Trybe" width="50px">
+    </a>
+    <img src="readme-img/spacer.gif" aria-hidden="true" alt="" height="50px" width="60px">
+    <a href="https://ciandt.com/br/pt-br" target="_blank" rel="noreferrer">
+      <img src="readme-img/ciandt.png" alt="Trybe" width="110px">
+    </a>
+  </p>
+  
+  <p align="center">
+    <a href="https://ancient-ridge-40479.herokuapp.com/user" target="_blank">Ver Online</a>
     ·
     <a href="https://github.com/Rafael-Javaro/Central_De_Erros/issues">Reportar Bug</a>
     ·
@@ -30,14 +40,14 @@
   <ol>
     <li>
       <a href="#sobre-o-projeto">Sobre o Projeto</a>
-      <ul>
-        <li><a href="#tecnologias-utilizadas">Tecnologias utilizadas</a></li>
-      </ul>
+    </li>
+    <li>
+      <a href="#tecnologias-utilizadas">Tecnologias utilizadas</a></li>
     </li>
     <li>
       <a href="#rodando-o-projeto">Rodando o projeto</a>
     </li>
-    <li><a href="#contato">Contato</a></li>
+    <li><a href="#desenvolvedores">Desenvolvedores</a></li>
   </ol>
 </details>
 
@@ -75,23 +85,24 @@ Abaixo estão os requisitos desta API, o time terá total liberdade para tomar a
 - A consulta de listagem não deve retornar os LOGs dos Eventos
 - Deve permitir a busca de um evento por um ID, dessa maneira exibindo o LOG desse evento em específico
 
-Nesse repositório está o Backend da aplicação. Você pode ver também o Frontend no repositório [ADICIONAR REPOSITORIO](#).
+Nesse repositório está o Backend da aplicação. Veja também o repositório do [Frontend](https://github.com/henriquebelias/Central-De-Erros-Front) da Central de Erros.
 
 # Tecnologias utilizadas
 
 Esse projeto foi desenvolvido com:
 
 * Linguagem base: [Java 8](https://www.java.com/en/)
-* API: [Spring Boot](https://spring.io/projects/spring-boot)
+* Framework backend: [Spring Boot](https://spring.io/projects/spring-boot)
 * Autenticação: [Spring Security](https://spring.io/projects/spring-security) e [Oauth2](https://oauth.net/2/)
 * Banco de dados: [PostgreSQL](https://www.postgresql.org/)
 * Documentação: [Swagger](https://swagger.io/)
+* Deploy: [Heroku](https://www.heroku.com/)
 
 
 <!-- GETTING STARTED -->
 # Rodando o projeto
 
-Para rodar esse projeto na sua máquina, você deverá clonar o repositório e executar o aqruivo jar:
+Para rodar o Backend do projeto na sua máquina, você deverá clonar o repositório e executar o aqruivo jar:
 
 ### Instalando somente o Frontend
 
@@ -118,13 +129,27 @@ Para rodar esse projeto na sua máquina, você deverá clonar o repositório e e
 
    ```
 
-## Rotas da API
-O projeto foi documentado através do Swagger. As rotas e modelos das entidades podem ser vistas em https://ancient-ridge-40479.herokuapp.com/swagger-ui.html
+O Frontend desse projeto pode ser acessado no github: [https://github.com/henriquebelias/Central-De-Erros-Front](https://github.com/henriquebelias/Central-De-Erros-Front)
+
+## Endpoints
+
+- **/user**: Acessa os usuários do sistema de central de erros
+- **/error-log**: Acessa os Logs de erro
+
+O projeto foi documentado através do Swagger.
+Todas as rotas, métodos e modelos das entidades podem ser vistos com detalhes na [documentação](https://ancient-ridge-40479.herokuapp.com/swagger-ui.html).
 
 <!-- CONTACT -->
-## Contatos
+## Desenvolvedores
 
-Nossos nomes - [LINKEDIN](#)
+- [Edison Pires](https://www.linkedin.com/in/edisonps/)
+- [Felipe Cardoso](https://www.linkedin.com/in/felipe-de-carvalho-lopes-cardoso/)
+- [Henrique Elias](https://www.linkedin.com/in/henrique-brito-elias/)
+- [Rafael Javaro](https://www.linkedin.com/in/rafael-javaro/)
+- [Ricardo Rosa](https://www.linkedin.com/in/ricardorosa-dev/)
+- [Thais Quintela](https://www.linkedin.com/in/thais-quintela/)
+- [Vagner Pereira](https://www.linkedin.com/in/vagnerpsousa/)
+- [renÁtomo pataquÁ](https://www.linkedin.com/in/renato-pereira-feitosa/)
 
 
 
