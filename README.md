@@ -96,15 +96,13 @@ Esse projeto foi desenvolvido com:
 * Autenticação: [Spring Security](https://spring.io/projects/spring-security) e [Oauth2](https://oauth.net/2/)
 * Banco de dados: [PostgreSQL](https://www.postgresql.org/)
 * Documentação: [Swagger](https://swagger.io/)
-* Deploy: [Heroku](https://www.heroku.com/)
+* Deploy: [Heroku](https://www.heroku.com/) e [Docker](https://www.docker.com)
 
 
 <!-- GETTING STARTED -->
 # Rodando o projeto
 
 Para rodar o Backend do projeto na sua máquina, você deverá clonar o repositório e executar o aqruivo jar:
-
-### Instalando somente o Frontend
 
 1. Clone o Frontend
    ```sh
@@ -128,6 +126,15 @@ Para rodar o Backend do projeto na sua máquina, você deverá clonar o reposit�
    java -jar Central-de-Erros-0.0.1-SNAPSHOT.jar 
 
    ```
+### Instalando pelo Docker
+1. Baixe a imagem
+```sh
+  docker pull ricardorosadev/central-de-erros
+```
+2. Rode a imagem pelo Docker
+```sh
+  docker run -d -p 8080:8080 ricardorosadev/central-de-erros:latest
+```
 
 O Frontend desse projeto pode ser acessado no github: [https://github.com/henriquebelias/Central-De-Erros-Front](https://github.com/henriquebelias/Central-De-Erros-Front)
 
