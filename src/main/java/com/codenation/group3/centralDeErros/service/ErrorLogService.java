@@ -3,6 +3,7 @@ package com.codenation.group3.centralDeErros.service;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -16,6 +17,7 @@ import com.codenation.group3.centralDeErros.entity.ErrorLog;
 import com.codenation.group3.centralDeErros.entity.User;
 import com.codenation.group3.centralDeErros.exceptions.LogIncompleteBodyException;
 import com.codenation.group3.centralDeErros.exceptions.LogNotFoundException;
+import com.codenation.group3.centralDeErros.exceptions.LogWrongDateFormatException;
 import com.codenation.group3.centralDeErros.repository.ErrorLogRepository;
 
 @Service
@@ -98,11 +100,15 @@ public class ErrorLogService {
 	}
 	
 	public Page<ErrorLog> findByDate(String from, String to, Pageable pageable) {
-		DateTimeFormatter parser = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-    	LocalDateTime startDate = LocalDate.parse(from, parser).atStartOfDay();
-    	LocalDateTime endDate = LocalDate.parse(to, parser).atTime(23, 59);
-		
-		return repository.findByCreatedAtBetween(startDate, endDate, pageable);
+		try {
+			DateTimeFormatter parser = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+			LocalDateTime startDate = LocalDate.parse(from, parser).atStartOfDay();
+			LocalDateTime endDate = LocalDate.parse(to, parser).atTime(23, 59);
+			
+			return repository.findByCreatedAtBetween(startDate, endDate, pageable);
+		} catch(DateTimeParseException e) {
+			throw new LogWrongDateFormatException();
+		}
 	}
 	
 	public Integer countByLevel(String level) {

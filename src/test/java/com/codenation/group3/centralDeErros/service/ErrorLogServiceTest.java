@@ -19,6 +19,7 @@ import org.springframework.data.domain.Pageable;
 import com.codenation.group3.centralDeErros.entity.ErrorLog;
 import com.codenation.group3.centralDeErros.exceptions.LogIncompleteBodyException;
 import com.codenation.group3.centralDeErros.exceptions.LogNotFoundException;
+import com.codenation.group3.centralDeErros.exceptions.LogWrongDateFormatException;
 import com.codenation.group3.centralDeErros.repository.ErrorLogRepository;
 
 class ErrorLogServiceTest {
@@ -203,35 +204,35 @@ class ErrorLogServiceTest {
 	}
 
 	@Test
-	void testFindByLevel() {
+	void testFindByLevel_shouldCallFindByLevelMethod() {
 		errorLogService.findByLevel("warning", pageable);
 		
 		verify(repository).findByLevelIgnoreCase("warning", pageable);
 	}
 
 	@Test
-	void testFindByDescription() {
+	void testFindByDescription_ShouldCallFindByDescriptionMethod() {
 		errorLogService.findByDescription("description", pageable);
 		
 		verify(repository).findByDescriptionContainingIgnoreCase("description", pageable);
 	}
 
 	@Test
-	void testFindByLog() {
+	void testFindByLog_shouldCallFindByLogMethod() {
 		errorLogService.findByLog("LOG 01: Some error", pageable);
 		
 		verify(repository).findByLogContainingIgnoreCase("LOG 01: Some error", pageable);
 	}
 
 	@Test
-	void testFindByOrigin() {
+	void testFindByOrigin_shouldCallFindByOriginMethod() {
 		errorLogService.findByOrigin("service 01", pageable);
 		
 		verify(repository).findByOriginContainingIgnoreCase("service 01", pageable);
 	}
 
 	@Test
-	void testFindByDate() {
+	void testFindByDate_shouldDallFindByDateMethod() {
 		LocalDate from = LocalDate.of(2007, 11, 3);
 		LocalDate to = LocalDate.of(2014, 10, 13);
 		errorLogService.findByDate("2007-11-03", "2014-10-13", pageable);
@@ -240,6 +241,14 @@ class ErrorLogServiceTest {
 				LocalDateTime.of(from, LocalTime.of(0, 0)), 
 				LocalDateTime.of(to, LocalTime.of(23, 59)), 
 				pageable);
+	}
+	
+	@Test
+	void testFindByDate_shouldThrowExceptionIfWrongDateFormat() {
+		assertThrows(
+				LogWrongDateFormatException.class,
+				() -> errorLogService.findByDate("wrong", "format", pageable)
+		);
 	}
 
 	@Test
