@@ -94,6 +94,7 @@ Esse projeto foi desenvolvido com:
 * Linguagem base: [Java 8](https://www.java.com/en/)
 * Framework backend: [Spring Boot](https://spring.io/projects/spring-boot)
 * Autenticação: [Spring Security](https://spring.io/projects/spring-security) e [Oauth2](https://oauth.net/2/)
+* Testes Unitários: [JUnit5](https://junit.org/junit5/) e [Mockito](https://site.mockito.org/)
 * Banco de dados: [PostgreSQL](https://www.postgresql.org/)
 * Documentação: [Swagger](https://swagger.io/)
 * Deploy: [Heroku](https://www.heroku.com/) e [Docker](https://www.docker.com)
