@@ -21,14 +21,9 @@ import java.util.Objects;
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString
-//@EntityListeners(AuditingEntityListener.class)
 @Table(name = "users")
 public class User extends Auditable<String> implements UserDetails {
 
-    /**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -47,8 +42,6 @@ public class User extends Auditable<String> implements UserDetails {
     @NotNull
     @Column(length = 11, nullable = false)
     private String password;
-    
-//    private LocalDateTime createdAt;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -81,17 +74,25 @@ public class User extends Auditable<String> implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
-
+    
     @Override
+	public String toString() {
+		return "User [id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + Objects.hash(email, id, name, password);
+		return result;
+	}
+
+	@Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
         User user = (User) o;
         return id != null && Objects.equals(id, user.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return 0;
     }
 }

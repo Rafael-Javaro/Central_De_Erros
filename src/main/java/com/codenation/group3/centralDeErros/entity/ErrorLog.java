@@ -14,12 +14,11 @@ import java.util.Objects;
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString
 //@EntityListeners(AuditingEntityListener.class)
 @Table(name = "errors_table")
 public class ErrorLog extends Auditable<String>{
 
-    @Id
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -42,17 +41,26 @@ public class ErrorLog extends Auditable<String>{
 //    @NotNull
 //    @Column(length = 255, nullable = false, name = "created_at")
 //    private LocalDateTime createdAt;
-
+    
     @Override
+	public String toString() {
+		return "ErrorLog [id=" + id + ", level=" + level + ", description=" + description + ", log=" + log + ", origin="
+				+ origin + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + Objects.hash(description, id, level, log, origin);
+		return result;
+	}
+
+	@Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
         ErrorLog errorLog = (ErrorLog) o;
         return id != null && Objects.equals(id, errorLog.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return 0;
     }
 }
